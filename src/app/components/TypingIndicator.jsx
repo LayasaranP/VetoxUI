@@ -32,7 +32,7 @@ export default function useTypingEffect(fullText, speed = 20) {
       }
     };
 
-    update(); // Start immediately
+    update(); 
 
     return () => {
       if (timeoutRef.current) {

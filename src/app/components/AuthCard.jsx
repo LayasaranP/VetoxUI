@@ -1,5 +1,5 @@
 import React from "react";
-import { Cpu } from "lucide-react";
+import Image from "next/image.js";
 
 const AuthCard = ({ title, subtitle, children }) => {
   return (
@@ -16,10 +16,10 @@ const AuthCard = ({ title, subtitle, children }) => {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-500/10 mb-4 border border-indigo-500/20">
-            <Cpu size={32} className="text-indigo-400" />
+          <div className="inline-flex items-center justify-cente mb-6">
+            <Image src="/LLM 2.jpg" alt="Vetox Logo" width={100} height={100} />
           </div>
-          <h2 className="text-3xl font-bold text-white mb-2">{title}</h2>
+          <h2 className="text-3xl font-bold text-white mb-3">{title}</h2>
           <p className="text-slate-400">{subtitle}</p>
         </div>
 

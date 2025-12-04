@@ -3,14 +3,25 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import Loading from './Loading';
+import { AIBubble } from './TypingIndicator';
 
 const Messages = ({ messages }) => {
   const bottomRef = useRef(null);
+  const containerRef = useRef(null);
   const user_name = useSelector((state) => state.user.name);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages.length]);
+    const scrollTimer = setTimeout(() => {
+      if (bottomRef.current && bottomRef.current.parentElement) {
+        const container = bottomRef.current.parentElement.parentElement;
+        if (container && container.scrollHeight) {
+          container.scrollTop = container.scrollHeight;
+        }
+      }
+    }, 100);
+    
+    return () => clearTimeout(scrollTimer);
+  }, [messages]);
 
   if (messages.length === 0) {
     return (
@@ -29,12 +40,12 @@ const Messages = ({ messages }) => {
   }
 
   return (
-    <div className="flex flex-col mt-12 space-y-6 w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-8 pb-8">
+    <div className="flex flex-col mt-2 w-full max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
       {messages.map((msg, index) => {
         const isUser = msg.role === 'user';
 
         return (
-          <div key={index} className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
+          <div key={index} className={`flex my-3 ${isUser ? 'justify-end' : 'justify-start'}`}>
             <div className={`
                 flex gap-4
                 ${isUser 
@@ -52,7 +63,8 @@ const Messages = ({ messages }) => {
                           ) : msg.content === "" ? (
                      <Loading />
                        ) : (
-                           msg.content
+                          //  <AIBubble text={msg.content} />
+                          msg.content
                           )}
               </div>
             </div>

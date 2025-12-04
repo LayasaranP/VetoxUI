@@ -44,19 +44,20 @@ const SignInPage = ({ switchToSignUp }) => {
 
         if (typeof window !== "undefined") {
                 localStorage.setItem("vetox_user", JSON.stringify(res.user));
+                localStorage.setItem("vetox_user_time", String(Date.now()));
         }
 
         router.push('/chat');
       } else {
-        setErrorMessage("Sign in failed. Check your details and try again.");
+        setErrorMessage("SignIn failed. Check your details and try again.");
       }
     } catch (err) {
-      console.error(err);
+      setErrorMessage(err.message)
     }
   }
 
   return (
-    <AuthCard title="Welcome Back" subtitle="Sign in to access your workspace">
+    <AuthCard title="Welcome Back" subtitle="Sign in to access your Vetox workspace">
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Error Message */}
         {errorMessage && (

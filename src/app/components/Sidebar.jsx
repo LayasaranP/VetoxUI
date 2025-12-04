@@ -6,11 +6,11 @@ import {
   PanelLeftClose,
 } from "lucide-react";
 import SignOut from "../auth/SignOut";
-import ChatHistory from "./ChatHistory";
+import ChatHistoryList from "./ChatHistoryList";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 
-export default function Sidebar({ isOpen, setIsOpen }) {
+export default function Sidebar({ isOpen, setIsOpen, onSelectChat, onNewChat, refreshTrigger }) {
 
   const userName = useSelector((state) => state.user.name);
   const userEmail = useSelector((state) => state.user.email);
@@ -54,7 +54,10 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         </div>
 
         <div className="p-4">
-          <button className="w-full bg-indigo-600 hover:bg-indigo-500 text-white p-3 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-900/20 font-medium active:scale-95">
+          <button 
+            onClick={onNewChat}
+            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white p-3 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-indigo-900/20 font-medium active:scale-95"
+          >
             <Plus size={18} />
             <span>New Chat</span>
           </button>
@@ -66,7 +69,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             Recent Chats
           </h3>
 
-          <ChatHistory />
+          <ChatHistoryList onSelectChat={onSelectChat} refreshTrigger={refreshTrigger} />
         </div>
 
         {/* User Info */}

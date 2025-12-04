@@ -44,6 +44,7 @@ const SignUpPage = ({ switchToSignIn }) => {
         
         if (typeof window !== "undefined") {
           localStorage.setItem("vetox_user", JSON.stringify(res.user));
+          localStorage.setItem("vetox_user_time", String(Date.now()));
         }
 
         router.push('/chat');

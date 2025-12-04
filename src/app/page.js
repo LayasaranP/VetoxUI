@@ -14,6 +14,18 @@ const Page = () => {
 
   useEffect(() => {
     const savedUser = localStorage.getItem("vetox_user");
+    const savedTime = localStorage.getItem("vetox_user_time");
+
+    const now = Date.now();
+    const SESSION_LIMIT = 2 * 24 * 60 * 60 * 1000;
+
+    if (savedTime && now - Number(savedTime) > SESSION_LIMIT) {
+      localStorage.removeItem("vetox_user");
+      localStorage.removeItem("vetox_user_time");
+      dispatch(signOut());
+      setIsLoading(false);
+      return;
+    }
 
     if (savedUser && !isLoggedIn) {
       try {
@@ -22,7 +34,7 @@ const Page = () => {
         if (parsed && parsed.id) {
           dispatch(
             signIn({
-              user_id: parsed.id, 
+              user_id: parsed.id,
               name: parsed.name,
               email: parsed.email,
               isLoggedIn: true,
@@ -32,6 +44,7 @@ const Page = () => {
       } catch (err) {
         console.error("Invalid user in localStorage:", err);
         localStorage.removeItem("vetox_user");
+        localStorage.removeItem("vetox_user_time");
       }
     }
 
@@ -46,22 +59,12 @@ const Page = () => {
       return;
     }
 
+    localStorage.setItem("vetox_user_time", Date.now().toString());
+
     router.replace("/chat");
-    
-    const timer = setTimeout(() => {
-      dispatch(signOut());
-      localStorage.removeItem("vetox_user");
-      router.replace("/");
-    }, 2 * 60 * 1000); 
+  }, [isLoggedIn, isLoading, router]);
 
-    return () => {
-      clearTimeout(timer);
-    }
-  }, [isLoggedIn, isLoading, dispatch, router]);
-
-  if (isLoading) {
-    return null;
-  }
+  if (isLoading) return null;
 
   return <AuthProvider />;
 };
