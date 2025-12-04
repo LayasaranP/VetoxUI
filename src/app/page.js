@@ -42,7 +42,6 @@ const Page = () => {
           );
         }
       } catch (err) {
-        console.error("Invalid user in localStorage:", err);
         localStorage.removeItem("vetox_user");
         localStorage.removeItem("vetox_user_time");
       }

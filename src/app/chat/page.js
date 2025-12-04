@@ -130,7 +130,6 @@ const Page = () => {
       }
 
       if (apiUrl) {
-        console.log("Sending message to backend:", currentInput, "Session:", activeSessionId);
         const res = await fetch(`${apiUrl}/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -143,7 +142,6 @@ const Page = () => {
 
         if (!res.ok) throw new Error('Failed to fetch');
         data = await res.json();
-        console.log("Backend response:", data);
         
         // Check if backend returned an error about conversation limit
         if (data.error && data.error.includes('limit')) {
@@ -156,7 +154,7 @@ const Page = () => {
         data = { reply: `This is a simulated AI response to: "${currentInput}"\n\n(No API found, mock response.)` };
       }
 
-      const aiMessage = { role: 'assistant', content: data.reply };
+      const aiMessage = { role: 'assistant', content: data.reply, animate: true };
 
       setMessages((prev) => {
         const newMessages = [...prev];
@@ -164,15 +162,11 @@ const Page = () => {
         return newMessages;
       });
 
-      // Trigger sidebar refresh after successful message with a small delay
-      // to allow backend to create the chat entry
-      console.log("Triggering sidebar refresh");
       setTimeout(() => {
         setRefreshSidebar(prev => prev + 1);
-      }, 1000); // Increased to 1 second
+      }, 1000); 
 
     } catch (error) {
-      console.error('Error:', error);
       setMessages((prev) => {
         const newMessages = [...prev];
         newMessages[newMessages.length - 1] = {

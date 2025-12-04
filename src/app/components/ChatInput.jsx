@@ -61,7 +61,6 @@ export const ChatInput = ({ messages, setMessages, onSendMessage, sessionId }) =
         });
       }
     } catch (error) {
-      console.error('Error:', error);
       setMessages((prev) => {
         const newMessages = [...prev];
         newMessages[newMessages.length - 1] = {

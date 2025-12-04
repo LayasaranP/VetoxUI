@@ -16,6 +16,8 @@ const SignOut = () => {
           email: '',
           isLoggedIn: false
       }));
+      localStorage.removeItem("vetox_user");
+      localStorage.removeItem("vetox_user_time");
       router.push('/'); 
     };
 

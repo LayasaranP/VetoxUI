@@ -27,14 +27,12 @@ const Summarize = ({ isOpen, onClose, messages }) => {
       } else if (result && result.reply) {
          setSummary(result.reply);
       } else if (result && result.message) {
-         // Fallback if backend returns 'message' instead of 'summary'
          setSummary(result.message);
       } else {
         setError("Failed to generate summary.");
       }
     } catch (err) {
       setError("An error occurred while summarizing.");
-      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -86,7 +84,6 @@ const Summarize = ({ isOpen, onClose, messages }) => {
           )}
         </div>
 
-        {/* Footer */}
         <div className="p-4 border-t border-slate-800 flex justify-end">
           <button 
             onClick={onClose}

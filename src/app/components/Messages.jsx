@@ -62,10 +62,11 @@ const Messages = ({ messages }) => {
                         msg.content
                           ) : msg.content === "" ? (
                      <Loading />
+                       ) : msg.animate ? (
+                          <AIBubble text={msg.content} />
                        ) : (
-                          //  <AIBubble text={msg.content} />
                           msg.content
-                          )}
+                       )}
               </div>
             </div>
           </div>

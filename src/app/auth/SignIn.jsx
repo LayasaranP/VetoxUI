@@ -56,6 +56,10 @@ const SignInPage = ({ switchToSignUp }) => {
     }
   }
 
+  const handleForgotPassword = () => {
+    router.push("/forgot_password")
+  }
+
   return (
     <AuthCard title="Welcome Back" subtitle="Sign in to access your Vetox workspace">
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -98,6 +102,7 @@ const SignInPage = ({ switchToSignUp }) => {
         <div className="flex justify-end">
           <button
             type="button"
+            onClick={handleForgotPassword}
             className="text-sm text-indigo-400 hover:text-indigo-300"
           >
             Forgot Password?

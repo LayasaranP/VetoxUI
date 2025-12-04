@@ -78,14 +78,12 @@ const ChatHistoryList = ({ onSelectChat, refreshTrigger }) => {
             _id: sId
          }];
       } else {
-        console.warn("Fetched chat history is not an array or valid object:", data);
         sessions = [];
       }
       
       setHistoryList(sessions);
 
     } catch (error) {
-      console.error("Error fetching chat history:", error);
     }
   };
 
@@ -112,7 +110,6 @@ const ChatHistoryList = ({ onSelectChat, refreshTrigger }) => {
       setHistoryList((prev) => prev.filter((s) => s.session_id !== session.session_id));
       
     } catch (error) {
-      console.error("Error deleting chat:", error);
       alert("Failed to delete chat. Please try again.");
     }
   };

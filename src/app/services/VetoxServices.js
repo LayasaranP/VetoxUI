@@ -32,7 +32,6 @@ export async function fetchUserChats(userId) {
     if (!res.ok) throw new Error("Failed to fetch chat history");
     return res.json();
   } catch (error) {
-    console.error("Error fetching user chats:", error);
     return [];
   }
 }
@@ -46,7 +45,6 @@ export async function fetchChatDetails(userId, blockIndex) {
     if (!res.ok) throw new Error("Failed to fetch chat details");
     return res.json();
   } catch (error) {
-    console.error("Error fetching chat details:", error);
     return null;
   }
 }

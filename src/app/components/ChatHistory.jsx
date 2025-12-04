@@ -4,7 +4,6 @@ import { Trash2 } from "lucide-react";
 const ChatHistory = ({ chat, onSelectChat, onDeleteChat }) => {
   if (!chat) return null; 
 
-  // Prioritize session summary, fallback to legacy checks
   const summary = chat.summary || (chat.user ? chat.user : (chat.conversations && chat.conversations.length > 0 ? chat.conversations[0]?.user : "New Chat"));
   
   const timestamp = chat.timestamp || (chat.conversations && chat.conversations.length > 0 
